@@ -32,6 +32,6 @@ export default defineConfig({
         },
     },
     plugins: [
-        ...getMapsOptimizers(maps, optimizerOptions),
+        ...(process.env.TILESET_OPTIMIZATION === "true" ? getMapsOptimizers(maps, optimizerOptions) : []),
     ],
 });
