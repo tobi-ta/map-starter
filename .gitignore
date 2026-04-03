@@ -24,3 +24,25 @@ dist-ssr
 *.sw?
 .env.secret
 dist.zip
+
+# Unused tilesets - only track what office.tmj references
+tilesets/animated/
+tilesets/animated_ui/
+tilesets/characters/
+tilesets/home_designs/
+tilesets/modern-office/
+tilesets/temp-extract/
+tilesets/Animated_Objects.tsx
+tilesets/Modern_Office_Shadowless*
+tilesets/Modern_Office_Singles*
+tilesets/Premade_Characters*
+tilesets/Room_Builder_3d_walls*
+tilesets/Room_Builder_Arched_Entryways*
+tilesets/Room_Builder_baseboards*
+tilesets/Room_Builder_borders*
+tilesets/Room_Builder_Floor_Connectors*
+tilesets/Room_Builder_Floor_Paths*
+tilesets/Room_Builder_Floor_Shadows*
+tilesets/Room_Builder_Office*
+tilesets/Room_Builder_Walls*
+tilesets/UI_*
