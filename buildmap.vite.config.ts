@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import { defineConfig } from "vite";
 import { getMaps, getMapsOptimizers, getMapsScripts, LogLevel, OptimizeOptions } from "wa-map-optimizer-vite";
+import { copyFileSync, mkdirSync, readdirSync, existsSync } from "fs";
+import { resolve, dirname } from "path";
 
 const maps = getMaps();
 
@@ -33,5 +35,28 @@ export default defineConfig({
     },
     plugins: [
         ...(process.env.TILESET_OPTIMIZATION === "true" ? getMapsOptimizers(maps, optimizerOptions) : []),
+        {
+            name: "copy-map-assets",
+            closeBundle() {
+                const dist = resolve(__dirname, "dist");
+                const tilesetDist = resolve(dist, "tilesets");
+                mkdirSync(tilesetDist, { recursive: true });
+
+                // Copy map files
+                for (const file of readdirSync(".")) {
+                    if (file.endsWith(".tmj")) {
+                        copyFileSync(file, resolve(dist, file));
+                    }
+                }
+
+                // Copy tileset files referenced by maps
+                for (const file of readdirSync("tilesets")) {
+                    const src = resolve("tilesets", file);
+                    if (file.endsWith(".tsx") || file.endsWith(".png")) {
+                        copyFileSync(src, resolve(tilesetDist, file));
+                    }
+                }
+            },
+        },
     ],
 });
